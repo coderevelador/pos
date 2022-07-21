@@ -23,6 +23,7 @@
                             </div>
                                  <div class="col-md-6">
                                 <input type="text" class="form-control" id="exampleInputFirstName" required placeholder="Enter Product Code" v-model="form.product_code">
+                                <small class="text-danger" v-if="errors.product_code">{{errors.product_code}}</small>
                             </div>
                         </div>
                     </div>
@@ -47,7 +48,7 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-4">
-                                <input type="text" class="form-control" id="exampleInputFirstName" required placeholder="Enter Product Root" v-model="form.product_root">
+                                <input type="text" class="form-control" id="exampleInputFirstName" required placeholder="Enter Product Root" v-model="form.root">
                             </div>
                             <div class="col-md-4">
                                 <input type="text" class="form-control" id="exampleInputFirstName" required placeholder="Enter Buying Price" v-model="form.buying_price">
@@ -128,6 +129,7 @@ export default{
       },
       categories:{},
       suppliers: {},
+      errors:{}
     }
   },
   methods:{

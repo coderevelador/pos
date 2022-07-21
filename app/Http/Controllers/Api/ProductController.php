@@ -90,18 +90,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $product = Product::findorfail($id);
+        return response()->json($product);
     }
 
     /**
@@ -113,7 +103,44 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       $data = array();
+       $data['product_name'] = $request->product_name;
+       $data['product_code'] = $request->product_code;
+       $data['root'] = $request->root;
+       $data['buying_price'] = $request->buying_price;
+       $data['selling_price'] = $request->selling_price;
+       $data['buying_date'] = $request->buying_date;
+       $data['product_quantity'] = $request->product_quantity;
+       $data['category_id'] = $request->category_id;
+       $data['supplier_id'] = $request->supplier_id;
+       $image = $request->newimage;
+
+       if($image){
+        $position = strpos($image, ';');
+        $sub = substr($image, 0, $position);
+        $ext = explode('/', $sub)[1];
+        $name = time().".".$ext;
+        $img = Image::make($image);
+        $upload_path = 'backend/product/';
+        $image_url = $upload_path.$name;
+        $success = $img->save($image_url);
+       
+       if($success){
+        $data['image'] = $image_url;
+        $img = DB::table('products')->where('id', $id)->first();
+        $image_path = $img->image;
+        if($image_path){
+            $done = unlink($image_path);
+        }
+        
+        $user = DB::table('products')->where('id',$id)->update($data);
+            }
+       }else{
+        $oldphoto = $request->image;
+        $data['image'] = $oldphoto;
+        $user = DB::table('products')->where('id', $id)->update($data);
+       }
+    
     }
 
     /**
@@ -124,6 +151,13 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $employee = DB::table('products')->where('id',$id)->first();
+        $image = $employee->image;
+        if($image){
+            unlink($image);
+            DB::table('products')->where('id',$id)->delete();
+        }else{
+            DB::table('products')->where('id',$id)->delete();
+        }
     }
 }
