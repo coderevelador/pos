@@ -25,6 +25,10 @@ let editproduct = require('./components/product/edit.vue').default;
 let addexpense = require('./components/expense/create.vue').default;
 let expense = require('./components/expense/index.vue').default;
 let editexpense = require('./components/expense/edit.vue').default;
+//salary
+let salary = require('./components/salary/all-employee.vue').default;
+let paysalary = require('./components/salary/create.vue').default;
+
 
 export const routes = [
     { path: '/', component: login, name:'/' },
@@ -52,5 +56,8 @@ export const routes = [
     { path: '/add-expense', component: addexpense, name:'add-expense' },
     { path: '/expense', component: expense, name:'expense' },
     { path: '/edit-expense/:id', component: editexpense, name:'edit-expense' },
+    //salary Routes
+    { path: '/given-salary', component: salary, name:'given-salary' },
+    { path: '/pay-salary/:id', component: paysalary, name:'pay-salary' },
 ]
   
