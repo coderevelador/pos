@@ -2,7 +2,7 @@
    <div>
     <div class="row">
         <div class="col-md-6 my-2">
-            <router-link to="/add-employee" class="btn btn-primary">Add Employee</router-link>
+            <router-link to="/salary" class="btn btn-primary">Go Back</router-link>
             
         </div>
         <div class='col-md-12'>
@@ -17,7 +17,7 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-left">
-                    <h1 class="h4 text-gray-900 mb-3">All Employee</h1>
+                    <h1 class="h4 text-gray-900 mb-3">Employee Salary Details</h1>
                   </div>
       <div class="row">
             <div class="col-lg-12 mb-4">
@@ -31,21 +31,19 @@
                     <thead class="thead-light">
                       <tr>
                         <th>Name</th>
-                        <th>Photo</th>
-                        <th>Phone</th>
-                        <th>Salary</th>
-                        <th>Joining Date</th>
+                        <th>Month</th>
+                        <th>Amount</th>
+                        <th>Date</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="employee in filterSearch" :key="employee.id">
-                        <td>{{employee.name}}</td>
-                        <td><img :src="employee.photo" id="emp_photo"></td>
-                        <td>{{employee.phone}}</td>
-                        <td>{{employee.salary}}</td>
-                        <td>{{employee.joining_date}}</td>
-                        <td><router-link :to="{name:'pay-salary', params:{id:employee.id}}" class="btn btn-primary">Pay Salary</router-link>
+                      <tr v-for="salary in filterSearch" :key="salary.id">
+                        <td>{{salary.name}}</td>
+                        <td>{{salary.salary_month}}</td>
+                        <td>{{salary.amount}}</td>
+                        <td>{{salary.salary_date}}</td>
+                        <td><router-link :to="{name:'edit-salary', params:{id:salary.id}}" class="btn btn-primary">Edit Salary</router-link>
                         </td>
                       </tr>
                     </tbody>
@@ -78,29 +76,29 @@ export default{
   },
   data(){
     return{
-      employees : [],
+      salaries : [],
       searchTerm:'',
     }
   },
   methods:{
-    allEmployee(){
-      axios.get('api/allemployee/')
-      .then(({data})=> (this.employees = data))
-      .catch()
-    },
-  
+    viewSalary(){
+      let id = this.$route.params.id
+      axios.get('/api/salary/view/'+id)
+     .then(({data}) => (this.salaries = data))
+    .catch( error => this.errors = error.response.data.errors)
+  },
   },
   computed:{
 
     filterSearch(){
-      return this.employees.filter(employee=>{
-        return employee.name.match(this.searchTerm ) || employee.phone.match(this.searchTerm)
+      return this.salaries.filter(salary=>{
+        return salary.name.match(this.searchTerm ) 
       })
     }
 
   },
   created(){
-    this.allEmployee();
+    this.viewSalary();
   }
 
 

@@ -46,6 +46,15 @@ class Notification{
     }).show();
  }
 
+ salary_validation(){
+    new Noty({
+        type: 'warning',
+        layout:'topRight',
+        text: 'Current month salary already generated!',
+        timeout:'3000',
+    }).show();
+ }
+
 }
 
 export default Notification = new Notification();

@@ -2,7 +2,7 @@
    <div>
     <div class="row">
         <div class="col-md-6">
-            <router-link to="/all-employee" class="btn btn-primary">All Employee</router-link>
+            <router-link to="/salary" class="btn btn-primary">Go Back</router-link>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -13,18 +13,18 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-left">
-                    <h1 class="h4 text-gray-900 mb-4">Pay Salay</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Update Salary</h1>
                   </div> 
-                  <form class="user" @submit.prevent="PaySalary" >
+                  <form class="user" @submit.prevent="UpdateSalary" >
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
                                 <label for="exampleFormControlSelect">Name</label>
-                                <input type="text" class="form-control" id="exampleInputFirstName" required placeholder="Enter Full Name" v-model="form.name" readonly>
+                                <input type="text" class="form-control" id="exampleInputFirstName" required placeholder="Enter Full Name" v-model="form.name" disabled >
                             </div>
                                  <div class="col-md-6">
                                     <label for="exampleFormControlSelect">Email</label>
-                                <input type="text" class="form-control" id="exampleInputFirstName" required placeholder="Enter Email" v-model="form.email" readonly>
+                                <input type="text" class="form-control" id="exampleInputFirstName" required placeholder="Enter Email" v-model="form.email" disabled >
                             </div>
                         </div>
                     </div>
@@ -48,15 +48,16 @@
                                         <option value="December">December</option>
                                     </select>
                             </div>
+                            <input type="hidden" v-model="form.empoyee_id">
                             <div class="col-md-6">
                                 <label for="exampleFormControlSelect">Salary</label>
-                                <input type="text" class="form-control" id="exampleInputFirstName" disabled v-model="form.salary">
+                                <input type="text" class="form-control" id="exampleInputFirstName" v-model="form.amount">
                             </div>
                         </div>
                     </div>
                     
                     <div class="form-group" >
-                      <button type="submit" class="btn btn-primary btn-block-left">Pay Now</button>
+                      <button type="submit" class="btn btn-primary btn-block-left">Update</button>
                     </div>
                   </form>
                   <div class="text-center">
@@ -89,26 +90,27 @@ export default{
         name : '',
         email :  '',
         salary_month :  '',
-        salary :  '',
+        amount :  '',
+        empoyee_id:'',
       }
     }
   },
   created(){
     let id = this.$route.params.id
-    axios.get('/api/allemployee/'+id)
+    axios.get('/api/salary/edit/'+id)
     .then(({data}) => (this.form = data))
     .catch(console.log('error'))
   },
 
   methods:{
-  PaySalary(){
+  UpdateSalary(){
     let id = this.$route.params.id
-    axios.post('/api/salary/paid/'+id,this.form)
+    axios.post('/api/salary/update/'+id,this.form)
     .then(()=>{
-      this.$router.push({name:'given-salary'})
+      this.$router.push({name:'salary'})
       Notification.success()
     })
-    .catch( error => this.errors = error.response.data.errors)
+    .catch( error => this.errors = error.response.data.errors)     
   },
  }
 }
