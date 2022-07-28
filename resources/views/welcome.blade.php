@@ -116,6 +116,14 @@
         </div>
       </li>
 
+      <li class="nav-item">
+        <router-link class="nav-link" to="/stock">
+        <i class="fas fa-dolly"></i>
+          <span>Stocks</span>
+        </a>
+      </li>
+
+
       <hr class="sidebar-divider">
       <div class="sidebar-heading">
         Examples

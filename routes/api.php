@@ -27,3 +27,5 @@ Route::get('/salary/view/{id}','Api\SalaryController@ViewSalary');
 Route::get('/salary/edit/{id}','Api\SalaryController@EditSalary');
 Route::post('/salary/update/{id}','Api\SalaryController@SalaryUpdate');
 
+Route::post('/stock/update/{id}','Api\ProductController@StockUpdate');
+
