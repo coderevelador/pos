@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link href="{{asset('backend/img/logo/logo.png')}}" rel="icon">
-  <title>RuangAdmin - Dashboard</title>
+  <title>POS Admin</title>
   <link href="{{asset('backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('backend/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('backend/css/ruang-admin.min.css')}}" rel="stylesheet">
@@ -25,7 +25,7 @@
         <div class="sidebar-brand-icon">
           <img src="{{asset('backend/img/logo/logo2.png')}}">
         </div>
-        <div class="sidebar-brand-text mx-3">RuangAdmin</div>
+        <div class="sidebar-brand-text mx-3">POS Admin</div>
       </a>
       <hr class="sidebar-divider my-0">
       <li class="nav-item active">
@@ -86,6 +86,19 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <router-link class="collapse-item" to="/add-product">Add Product</router-link>
             <router-link class="collapse-item" to="/product">All Product</router-link>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap44"
+          aria-expanded="true" aria-controls="collapseBootstrap44">
+          <i class="fa fa-user"></i>
+          <span>Customer</span>
+        </a>
+        <div id="collapseBootstrap44" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <router-link class="collapse-item" to="/add-customer">Add Customer</router-link>
+            <router-link class="collapse-item" to="/customer">All Customer</router-link>
           </div>
         </div>
       </li>

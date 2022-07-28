@@ -29,3 +29,4 @@ Route::post('/salary/update/{id}','Api\SalaryController@SalaryUpdate');
 
 Route::post('/stock/update/{id}','Api\ProductController@StockUpdate');
 
+Route::apiResource('/customer','Api\CustomerController');

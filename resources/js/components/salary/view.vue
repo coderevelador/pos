@@ -1,13 +1,13 @@
 <template>
-   <div>
+  <div>
     <div class="row">
-        <div class="col-md-6 my-2">
-            <router-link to="/salary" class="btn btn-primary">Go Back</router-link>
-            
-        </div>
-        <div class='col-md-12'>
-          <input type="text" class="form-control" v-model="searchTerm" style="width:300px" placeholder="Search Employee">
-        </div>
+      <div class="col-md-6 my-2">
+        <router-link to="/salary" class="btn btn-primary">Go Back</router-link>
+
+      </div>
+      <div class='col-md-12'>
+        <input type="text" class="form-control" v-model="searchTerm" style="width:300px" placeholder="Search Employee">
+      </div>
     </div>
     <div class="row justify-content-center">
       <div class="col-xl-12 col-lg-12 col-md-12">
@@ -19,43 +19,44 @@
                   <div class="text-left">
                     <h1 class="h4 text-gray-900 mb-3">Employee Salary Details</h1>
                   </div>
-      <div class="row">
-            <div class="col-lg-12 mb-4">
-              <!-- Simple Tables -->
-              <div class="card">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Employee List</h6>
-                </div>
-                <div class="table-responsive">
-                  <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                      <tr>
-                        <th>Name</th>
-                        <th>Month</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="salary in filterSearch" :key="salary.id">
-                        <td>{{salary.name}}</td>
-                        <td>{{salary.salary_month}}</td>
-                        <td>{{salary.amount}}</td>
-                        <td>{{salary.salary_date}}</td>
-                        <td><router-link :to="{name:'edit-salary', params:{id:salary.id}}" class="btn btn-primary">Edit Salary</router-link>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="card-footer"></div>
-              </div>
-            </div>
-          </div>
-          <!--Row-->
-                 
+                  <div class="row">
+                    <div class="col-lg-12 mb-4">
+                      <!-- Simple Tables -->
+                      <div class="card">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                          <h6 class="m-0 font-weight-bold text-primary">Employee List</h6>
+                        </div>
+                        <div class="table-responsive">
+                          <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                              <tr>
+                                <th>Name</th>
+                                <th>Month</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="salary in filterSearch" :key="salary.id">
+                                <td>{{ salary.name }}</td>
+                                <td>{{ salary.salary_month }}</td>
+                                <td>{{ salary.amount }}</td>
+                                <td>{{ salary.salary_date }}</td>
+                                <td>
+                                  <router-link :to="{ name: 'edit-salary', params: { id: salary.id } }"
+                                    class="btn btn-primary">Edit Salary</router-link>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="card-footer"></div>
+                      </div>
+                    </div>
                   </div>
+                  <!--Row-->
+
                 </div>
               </div>
             </div>
@@ -63,41 +64,42 @@
         </div>
       </div>
     </div>
-  
+  </div>
+
 </template>
 
 <script type="text/javascript">
 
-export default{
-  created(){
-    if(!User.loggedIn()){
-      this.$router.push({name:'home'})
+export default {
+  created() {
+    if (!User.loggedIn()) {
+      this.$router.push({ name: 'home' })
     }
   },
-  data(){
-    return{
-      salaries : [],
-      searchTerm:'',
+  data() {
+    return {
+      salaries: [],
+      searchTerm: '',
     }
   },
-  methods:{
-    viewSalary(){
+  methods: {
+    viewSalary() {
       let id = this.$route.params.id
-      axios.get('/api/salary/view/'+id)
-     .then(({data}) => (this.salaries = data))
-    .catch( error => this.errors = error.response.data.errors)
+      axios.get('/api/salary/view/' + id)
+        .then(({ data }) => (this.salaries = data))
+        .catch(error => this.errors = error.response.data.errors)
+    },
   },
-  },
-  computed:{
+  computed: {
 
-    filterSearch(){
-      return this.salaries.filter(salary=>{
-        return salary.name.match(this.searchTerm ) 
+    filterSearch() {
+      return this.salaries.filter(salary => {
+        return salary.name.match(this.searchTerm)
       })
     }
 
   },
-  created(){
+  created() {
     this.viewSalary();
   }
 
@@ -108,10 +110,8 @@ export default{
 </script>
 
 <style type="text/css">
+#emp_photo {
+  height: 40px;
 
-#emp_photo{
-  height:40px;
-  
 }
-
 </style>
